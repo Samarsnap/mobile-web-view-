@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -120,8 +121,26 @@
       nav { display:none; }
       .hamburger { display:flex; }
       .top-cards { flex-direction:column; }
-      .goals-card { grid-template-columns:1fr; grid-template-rows:auto auto auto auto; 
-                   gap:20px; text-align:left; }
+
+      /* stack and center the goals under the title, reorder per image */
+      .goals-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        text-align: center;
+      }
+      .goals-card .title-area,
+      .goals-card .promote,
+      .goals-card .provide,
+      .goals-card .fun {
+        grid-column: auto !important;
+        grid-row: auto !important;
+      }
+      .goals-card .promote { order: 1; }
+      .goals-card .provide { order: 2; }
+      .goals-card .fun     { order: 3; }
+
       .event-card { flex-direction:column; }
       .event-card .event-poster { flex:0 0 auto; width:100%; }
       #team .team-card, #contact .contact-info { max-width:100%; }
@@ -175,13 +194,13 @@
       </div>
       <div class="goals-card" data-aos="zoom-in">
         <div class="title-area"><h2>GV<br>Goals</h2></div>
-        <div class="goal provide" data-aos="fade-up" data-aos-delay="100">
-          <h3>Provide Open Information</h3>
-          <p>Deliver transparent resources that empower players to make informed gaming decisions.</p>
-        </div>
         <div class="goal promote" data-aos="fade-up" data-aos-delay="200">
           <h3>Promote Healthy Gameplay</h3>
           <p>Encourage regular breaks, mental health awareness, and a culture of respect and inclusivity.</p>
+        </div>
+        <div class="goal provide" data-aos="fade-up" data-aos-delay="100">
+          <h3>Provide Open Information</h3>
+          <p>Deliver transparent resources that empower players to make informed gaming decisions.</p>
         </div>
         <div class="goal fun" data-aos="fade-up" data-aos-delay="300">
           <h3>Addiction-Free Fun</h3>
