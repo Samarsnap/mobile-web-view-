@@ -59,7 +59,7 @@
     #home::after { content:''; position:absolute; inset:0; background:rgba(0,0,0,0.6); }
     .hero-content { position:relative; z-index:1; text-align:center; max-width:700px; }
     /* NEW: Highlight GameVault text */
-    .hero-content h1 .highlight { color:#BDFF20; } /* NEW */
+    .hero-content h1 .highlight { color:#BDFF20; }
     .hero-content h1 { font-size:4rem; margin-bottom:20px; color:#fff; }
     .hero-content p { font-size:1.25rem; color:#ccc; margin-bottom:30px; }
     .btn { padding:16px 48px; background:#BDFF20; color:#000; font-weight:600; border-radius:30px; transition:transform .3s; }
@@ -72,7 +72,16 @@
     .top-cards .card p { font-size:1rem; color:#eee; line-height:1.5; }
 
     /* ===== GV Goals ===== */
-    .goals-card { background:#222; border-radius:12px; padding:40px 24px; display:grid; grid-template-columns:auto 1fr 1fr; grid-template-rows:auto auto; gap:40px 24px; align-items:start; }
+    .goals-card {
+      background:#222;
+      border-radius:12px;
+      padding:40px 24px;
+      display:grid;
+      grid-template-columns:auto 1fr 1fr;
+      grid-template-rows:auto auto;
+      gap:40px 24px;
+      align-items:start;
+    }
     .goals-card .title-area { grid-column:1; grid-row:1/span 2; }
     .goals-card .title-area h2 { font-size:2.5rem; line-height:1.1; color:#fff; }
     .goals-card .provide { grid-column:2; grid-row:1; }
@@ -102,7 +111,6 @@
     #team .team-members { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; perspective:1000px; }
     #team .team-card { flex:1; max-width:48%; background:#222; padding:16px; border-radius:12px; text-align:center; transition:transform .3s; }
     #team .team-card:hover { transform:translateY(-10px) rotateZ(0deg); }
-    /* ——— CIRCULAR IMAGE SHAPE ——— */
     #team .team-card img {
       width:200px; height:200px; object-fit:cover; border-radius:50%;
       margin:0 auto 16px; display:block;
@@ -113,21 +121,33 @@
     #contact .contact-info p { margin-bottom:12px; }
 
     /* ===== Section-Nav Arrows ===== */
-    .section-nav { text-align:center; margin:2rem auto; color:#BDFF20; font-size:1.25rem; font-weight:500; } /* NEW */
+    .section-nav { text-align:center; margin:2rem auto; color:#BDFF20; font-size:1.25rem; font-weight:500; }
 
     /* ===== Mobile Overrides ===== */
     @media(max-width:768px){
       nav { display:none; }
       .hamburger { display:flex; }
       .top-cards { flex-direction:column; }
-      .goals-card { grid-template-columns:1fr; grid-template-rows:auto auto auto auto; gap:20px; text-align:center; }
       .event-card { flex-direction:column; }
       .event-card .event-poster { flex:0 0 auto; width:100%; }
       #team .team-card, #contact .contact-info { max-width:100%; }
 
-      /* make each section full-width on mobile */  /* NEW */
+      /* ===== GOALS adjustments for mobile ===== */
+      .goals-card {
+        grid-template-columns:1fr;             /* single column */
+        grid-template-rows:auto auto auto auto;
+        gap:20px;
+        justify-items: end;                    /* push goals to the right */
+        text-align: right;                     /* right-align their text */
+      }
+      .goals-card .title-area {
+        justify-self: start;                   /* keep title on the left */
+        text-align: left;
+      }
+
+      /* make each section full-width on mobile */
       .section { max-width:none; padding:0 1rem; margin:1.5rem auto; }
-      /* allow hero bg to scroll on mobile */     /* NEW */
+      /* allow hero bg to scroll on mobile */
       #home { background-attachment: scroll; }
     }
   </style>
@@ -150,15 +170,11 @@
     <!-- HERO -->
     <section id="home" class="section" data-aos="fade-up">
       <div class="hero-content">
-        <!-- NEW: split text and highlight -->
         <h1>Want to <span class="highlight">Know GameVault?</span></h1>
         <p>Transforming esports into a healthier, more inclusive, and truly engaging experience.</p>
         <a href="#about" class="btn">Dive in!</a>
       </div>
     </section>
-
-    <!-- NEW: arrow nav -->
-    <div class="section-nav">‹ Know GameVault ›</div>
 
     <!-- ABOUT & GOALS -->
     <section id="about" class="section" data-aos="fade-up">
@@ -189,9 +205,6 @@
       </div>
     </section>
 
-    <!-- NEW: arrow nav -->
-    <div class="section-nav">‹ Our Events ›</div>
-
     <!-- EVENTS -->
     <section id="events" class="section" data-aos="fade-up">
       <div class="section-title">Our Events</div>
@@ -217,9 +230,6 @@
       </div>
     </section>
 
-    <!-- NEW: arrow nav -->
-    <div class="section-nav">‹ GV Team ›</div>
-
     <!-- TEAM -->
     <section id="team" class="section" data-aos="fade-up">
       <div class="section-title">Our Team</div>
@@ -236,7 +246,6 @@
         </div>
       </div>
 
-      <!-- GV Gamers Team -->
       <div class="section-title">GV Gamers Team</div>
       <div class="team-members">
         <div class="team-card" data-aos="flip-left">
@@ -261,9 +270,6 @@
         </div>
       </div>
     </section>
-
-    <!-- NEW: arrow nav -->
-    <div class="section-nav">‹ Want to Talk to Us ›</div>
 
     <!-- CONTACT -->
     <section id="contact" class="section" data-aos="fade-up">
