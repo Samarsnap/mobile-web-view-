@@ -13,269 +13,130 @@
   <style>
     /* ===== Global & Reset ===== */
     html { scroll-behavior: smooth; }
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #000;
-      color: #fff;
-      overflow-x: hidden;
-      line-height: 1.5;
-    }
-    a { color: inherit; text-decoration: none; }
-
-    /* ===== Progress Bar ===== */
-    #progress {
-      position: fixed;
-      top: 0; left: 0;
-      width: 0; height: 4px;
-      background: #BDFF20;
-      z-index: 2000;
-      transition: width .2s;
-    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Poppins',sans-serif; background:#000; color:#fff; overflow-x:hidden; line-height:1.5; }
+    a { color:inherit; text-decoration:none; }
 
     /* ===== Header & Nav ===== */
-    header {
-      position: fixed;
-      top: 0; left: 0; width: 100%;
-      padding: 20px 60px;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(10px);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1000;
-      transition: background .3s;
-    }
-    header.scrolled { background: rgba(0,0,0,0.6); }
-    .logo {
-      font-size: 1.5rem; font-weight: 600; color: #BDFF20;
-      cursor: pointer;
-    }
-    /* Desktop nav */
-    nav {
-      display: flex; gap: 30px;
-    }
-    nav a {
-      position: relative; padding: 4px 0; font-weight: 500;
-    }
-    nav a::after {
-      content: '';
-      position: absolute; left: 0; bottom: -2px;
-      width: 100%; height: 2px; background: #BDFF20;
-      transform: scaleX(0); transform-origin: right;
-      transition: transform .3s;
-    }
-    nav a:hover::after,
-    nav a.active::after {
-      transform: scaleX(1); transform-origin: left;
-    }
-    /* Mobile hamburger */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-    }
-    .hamburger span {
-      width: 25px; height: 3px; background: #fff;
-      border-radius: 2px;
-    }
+    #progress { position:fixed; top:0; left:0; width:0; height:4px; background:#BDFF20; z-index:2000; transition:width .2s; }
+    header { position:fixed; top:0; left:0; width:100%; padding:20px 60px; background:rgba(0,0,0,0.8); backdrop-filter:blur(10px); display:flex; justify-content:space-between; align-items:center; z-index:1000; transition:background .3s; }
+    header.scrolled { background:rgba(0,0,0,0.6); }
+    .logo { font-size:1.5rem; font-weight:600; color:#BDFF20; cursor:pointer; }
+    nav { display:flex; gap:30px; }
+    nav a { position:relative; padding:4px 0; font-weight:500; }
+    nav a::after { content:''; position:absolute; left:0; bottom:-2px; width:100%; height:2px; background:#BDFF20; transform:scaleX(0); transform-origin:right; transition:transform .3s; }
+    nav a:hover::after, nav a.active::after { transform:scaleX(1); transform-origin:left; }
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+    .hamburger span { display:block; width:25px; height:3px; background:#fff; border-radius:2px; }
 
     /* ===== Section Base ===== */
-    main { padding-top: 100px; }
+    main { padding-top:100px; }
     .section {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity .8s ease-out, transform .8s ease-out;
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 60px;
-      scroll-margin-top: 135px;
+      opacity:0;
+      transform:translateY(30px);
+      transition:opacity .8s ease-out, transform .8s ease-out;
+      max-width:1200px;
+      margin:40px auto;
+      padding:0 60px;
+      scroll-margin-top:135px;
     }
-    .section.visible { opacity: 1; transform: translateY(0); }
+    .section.visible { opacity:1; transform:translateY(0); }
     .section-title {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 30px;
-      position: relative;
+      text-align:center;
+      font-size:2rem;
+      margin-bottom:30px;
+      position:relative;
     }
     .section-title::after {
-      content: '';
-      width: 60px; height: 4px;
-      background: #BDFF20;
-      position: absolute; left: 50%; transform: translateX(-50%);
-      bottom: -10px;
+      content:''; width:60px; height:4px;
+      background:#BDFF20;
+      position:absolute; left:50%; transform:translateX(-50%);
+      bottom:-10px;
     }
 
     /* ===== Hero ===== */
-    #home {
-      background: url('assets/sky.jpg') center/cover no-repeat fixed;
-      height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
-    }
-    #home::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: rgba(0,0,0,0.6);
-    }
-    .hero-content {
-      position: relative; z-index: 1;
-      text-align: center; max-width: 700px;
-    }
-    .typewriter {
-      overflow: hidden; white-space: nowrap;
-      border-right: .15em solid #BDFF20;
-      animation: type 3s steps(40,end), blink .75s step-end infinite;
-    }
-    @keyframes type { from{ width:0;} to{ width:100%; } }
-    @keyframes blink { 50%{ border-color: transparent;} }
-    .hero-content h1 {
-      font-size: 4rem; margin-bottom: 20px; color: #fff;
-    }
-    .hero-content p {
-      font-size: 1.25rem; color: #ccc; margin-bottom: 30px;
-    }
-    .btn {
-      padding: 16px 48px;
-      background: #BDFF20; color: #000; font-weight: 600;
-      border-radius: 30px; transition: transform .3s;
-    }
-    .btn:hover { transform: scale(1.1) rotate(-1deg); }
+    #home { background:url('assets/sky.jpg') center/cover no-repeat fixed; height:100vh; display:flex; align-items:center; justify-content:center; position:relative; }
+    #home::after { content:''; position:absolute; inset:0; background:rgba(0,0,0,0.6); }
+    .hero-content { position:relative; z-index:1; text-align:center; max-width:700px; }
+    /* NEW: Highlight GameVault text */
+    .hero-content h1 .highlight { color:#BDFF20; } /* NEW */
+    .hero-content h1 { font-size:4rem; margin-bottom:20px; color:#fff; }
+    .hero-content p { font-size:1.25rem; color:#ccc; margin-bottom:30px; }
+    .btn { padding:16px 48px; background:#BDFF20; color:#000; font-weight:600; border-radius:30px; transition:transform .3s; }
+    .btn:hover { transform:scale(1.1) rotate(-1deg); }
 
     /* ===== About & Mission ===== */
-    .top-cards {
-      display: flex; gap: 40px; margin-bottom: 40px;
-    }
-    .top-cards .card {
-      flex: 1; background: #222; border-radius: 12px; padding: 24px;
-    }
-    .top-cards .card h2 {
-      font-size: 1.8rem; margin-bottom: 12px;
-    }
-    .top-cards .card p {
-      font-size: 1rem; color: #eee; line-height: 1.5;
-    }
+    .top-cards { display:flex; gap:40px; margin-bottom:40px; }
+    .top-cards .card { flex:1; background:#222; border-radius:12px; padding:24px; }
+    .top-cards .card h2 { font-size:1.8rem; margin-bottom:12px; }
+    .top-cards .card p { font-size:1rem; color:#eee; line-height:1.5; }
 
     /* ===== GV Goals ===== */
-    .goals-card {
-      background: #222; border-radius: 12px;
-      padding: 40px 24px;
-      display: grid;
-      grid-template-columns: auto 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 40px 24px;
-      align-items: start;
-    }
-    .goals-card .title-area {
-      grid-column: 1; grid-row: 1/span 2;
-    }
-    .goals-card .title-area h2 {
-      font-size: 2.5rem; line-height: 1.1; color: #fff;
-    }
-    .goals-card .provide { grid-column: 2; grid-row: 1; }
-    .goals-card .promote { grid-column: 3; grid-row: 1; }
-    .goals-card .fun     { grid-column: 2; grid-row: 2; }
-    .goals-card h3 {
-      font-size: 1.2rem; margin-bottom: 8px; color: #fff;
-    }
-    .goals-card p {
-      font-size: .95rem; color: #ccc; margin-top: 4px;
-    }
+    .goals-card { background:#222; border-radius:12px; padding:40px 24px; display:grid; grid-template-columns:auto 1fr 1fr; grid-template-rows:auto auto; gap:40px 24px; align-items:start; }
+    .goals-card .title-area { grid-column:1; grid-row:1/span 2; }
+    .goals-card .title-area h2 { font-size:2.5rem; line-height:1.1; color:#fff; }
+    .goals-card .provide { grid-column:2; grid-row:1; }
+    .goals-card .promote { grid-column:3; grid-row:1; }
+    .goals-card .fun     { grid-column:2; grid-row:2; }
+    .goals-card h3       { font-size:1.2rem; margin-bottom:8px; color:#fff; }
+    .goals-card p        { font-size:0.95rem; color:#ccc; margin-top:4px; }
 
     /* ===== Events ===== */
-    #events .subheading {
-      font-size: 1.5rem; margin: 40px 0;
-      color: #BDFF20; text-align: center;
-    }
-    .event-list {
-      display: grid; place-items: center;
-    }
+    #events .subheading { font-size:1.5rem; margin:40px 0; color:#BDFF20; text-align:center; }
+    .event-list { display:grid; place-items:center; }
     .event-card {
-      display: flex; gap: 30px;
-      background: #222; border-radius: 8px;
-      width: 80%; max-width: 800px;
-      overflow: hidden; padding: 30px;
-      transition: transform .3s, box-shadow .3s;
+      display:flex; gap:30px;
+      background:#222; border-radius:8px;
+      width:80%; max-width:800px;
+      overflow:hidden; padding:30px;
+      transition:transform .3s,box-shadow .3s;
     }
-    .event-card .event-text { flex: 1; }
-    .event-card .event-text h4 {
-      margin-bottom: 12px; color: #fff;
-    }
-    .event-card .event-text p {
-      margin-bottom: 8px; color: #ccc;
-    }
-    .event-card .event-poster {
-      flex: 0 0 40%;
-    }
-    .event-card .event-poster img {
-      display: block; width: 100%; height: auto; border-radius: 6px;
-    }
-    .event-card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-    }
+    .event-card .event-text { flex:1; }
+    .event-card .event-text h4 { margin-bottom:12px; color:#fff; }
+    .event-card .event-text p  { margin-bottom:8px; color:#ccc; }
+    .event-card .event-poster { flex:0 0 40%; }
+    .event-card .event-poster img { display:block; width:100%; height:auto; border-radius:6px; }
+    .event-card:hover { transform:scale(1.02); box-shadow:0 8px 24px rgba(0,0,0,0.5); }
 
     /* ===== Team ===== */
-    #team .team-members {
-      display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;
-      perspective: 1000px;
-    }
-    #team .team-card {
-      flex: 1; max-width: 48%;
-      background: #222; padding: 16px;
-      border-radius: 12px; text-align: center;
-      transition: transform .3s;
-    }
-    #team .team-card:hover {
-      transform: translateY(-10px) rotateZ(0deg);
-    }
-    /* Circular on desktop */
+    #team .team-members { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; perspective:1000px; }
+    #team .team-card { flex:1; max-width:48%; background:#222; padding:16px; border-radius:12px; text-align:center; transition:transform .3s; }
+    #team .team-card:hover { transform:translateY(-10px) rotateZ(0deg); }
+    /* ——— CIRCULAR IMAGE SHAPE ——— */
     #team .team-card img {
-      width: 200px; height: 200px; object-fit: cover;
-      border-radius: 50%; margin: 0 auto 16px; display: block;
+      width:200px; height:200px; object-fit:cover; border-radius:50%;
+      margin:0 auto 16px; display:block;
     }
 
     /* ===== Contact ===== */
-    #contact .contact-info {
-      max-width: 48%; margin: 0 auto; text-align: center; color: #ddd;
-    }
-    #contact .contact-info p { margin-bottom: 12px; }
+    #contact .contact-info { max-width:48%; margin:0 auto; text-align:center; color:#ddd; }
+    #contact .contact-info p { margin-bottom:12px; }
 
-    /* ===== Responsive ===== */
-    @media (max-width: 768px) {
-      /* Mobile nav */
-      nav { display: none; }
-      .hamburger { display: flex; }
-      /* Stack cards */
-      .top-cards { flex-direction: column; }
-      /* Single-column goals */
-      .goals-card {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto auto;
-        gap: 20px; text-align: center;
-      }
-      /* Stack event card */
-      .event-card { flex-direction: column; }
-      .event-card .event-poster {
-        flex: 0 0 auto; width: 100%;
-      }
-      /* Full-width team/contact */
-      #team .team-card,
-      #contact .contact-info {
-        max-width: 100%;
-      }
+    /* ===== Section-Nav Arrows ===== */
+    .section-nav { text-align:center; margin:2rem auto; color:#BDFF20; font-size:1.25rem; font-weight:500; } /* NEW */
+
+    /* ===== Mobile Overrides ===== */
+    @media(max-width:768px){
+      nav { display:none; }
+      .hamburger { display:flex; }
+      .top-cards { flex-direction:column; }
+      .goals-card { grid-template-columns:1fr; grid-template-rows:auto auto auto auto; gap:20px; text-align:center; }
+      .event-card { flex-direction:column; }
+      .event-card .event-poster { flex:0 0 auto; width:100%; }
+      #team .team-card, #contact .contact-info { max-width:100%; }
+
+      /* make each section full-width on mobile */  /* NEW */
+      .section { max-width:none; padding:0 1rem; margin:1.5rem auto; }
+      /* allow hero bg to scroll on mobile */     /* NEW */
+      #home { background-attachment: scroll; }
     }
   </style>
 </head>
-
 <body>
   <div id="progress"></div>
   <header>
     <div class="logo">GameVault</div>
-    <div class="hamburger" onclick="toggleNav()">
-      <span></span><span></span><span></span>
-    </div>
+    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
     <nav id="mainNav">
       <a href="#home" class="active">Home</a>
       <a href="#about">About GV</a>
@@ -289,13 +150,17 @@
     <!-- HERO -->
     <section id="home" class="section" data-aos="fade-up">
       <div class="hero-content">
-        <h1><span class="typewriter">Want to know? GAMEVAULT</span></h1>
+        <!-- NEW: split text and highlight -->
+        <h1>Want to <span class="highlight">Know GameVault?</span></h1>
         <p>Transforming esports into a healthier, more inclusive, and truly engaging experience.</p>
         <a href="#about" class="btn">Dive in!</a>
       </div>
     </section>
 
-    <!-- ABOUT & MISSION -->
+    <!-- NEW: arrow nav -->
+    <div class="section-nav">‹ Know GameVault ›</div>
+
+    <!-- ABOUT & GOALS -->
     <section id="about" class="section" data-aos="fade-up">
       <div class="top-cards">
         <div class="card" data-aos="fade-right">
@@ -306,24 +171,26 @@
           <h2>Our Mission</h2>
           <p>To create a safe, inclusive, and supportive space where gamers can compete, learn, and grow without the stress and pressure of traditional gaming environments. We strive to build a community that values respect, balance, and healthy gaming habits.</p>
         </div>
-      </div> 
-
+      </div>
       <div class="goals-card" data-aos="zoom-in">
         <div class="title-area"><h2>GV<br>Goals</h2></div>
-        <div class="provide" data-aos="fade-up" data-aos-delay="100">
+        <div class="goal provide" data-aos="fade-up" data-aos-delay="100">
           <h3>Provide Open Information</h3>
           <p>Deliver transparent resources that empower players to make informed gaming decisions.</p>
         </div>
-        <div class="promote" data-aos="fade-up" data-aos-delay="200">
+        <div class="goal promote" data-aos="fade-up" data-aos-delay="200">
           <h3>Promote Healthy Gameplay</h3>
           <p>Encourage regular breaks, mental health awareness, and a culture of respect and inclusivity.</p>
         </div>
-        <div class="fun" data-aos="fade-up" data-aos-delay="300">
+        <div class="goal fun" data-aos="fade-up" data-aos-delay="300">
           <h3>Addiction-Free Fun</h3>
           <p>Thoughtful scheduling, reasonable match lengths, and wellness tips ensure gaming stays a passion, not a pitfall.</p>
         </div>
       </div>
     </section>
+
+    <!-- NEW: arrow nav -->
+    <div class="section-nav">‹ Our Events ›</div>
 
     <!-- EVENTS -->
     <section id="events" class="section" data-aos="fade-up">
@@ -335,7 +202,7 @@
             <h4>Barh Summer Royale BGMI Tournament</h4>
             <p>Duration: 1 Day</p>
             <p>Date: to be decided</p>
-            <p>Prize: ₹4,000</p>
+            <p>Prize: 4000 Day</p>
             <p>Location: Barh, Bihar</p>
             <p>Venue: To be decided</p>
             <p>Click for registration</p>
@@ -349,6 +216,9 @@
         </div>
       </div>
     </section>
+
+    <!-- NEW: arrow nav -->
+    <div class="section-nav">‹ GV Team ›</div>
 
     <!-- TEAM -->
     <section id="team" class="section" data-aos="fade-up">
@@ -366,6 +236,7 @@
         </div>
       </div>
 
+      <!-- GV Gamers Team -->
       <div class="section-title">GV Gamers Team</div>
       <div class="team-members">
         <div class="team-card" data-aos="flip-left">
@@ -391,6 +262,9 @@
       </div>
     </section>
 
+    <!-- NEW: arrow nav -->
+    <div class="section-nav">‹ Want to Talk to Us ›</div>
+
     <!-- CONTACT -->
     <section id="contact" class="section" data-aos="fade-up">
       <div class="section-title">Get in Touch</div>
@@ -406,27 +280,23 @@
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
     AOS.init({ duration:800, offset:100, once:false, mirror:true });
-
-    /* Scroll progress + scroll-spy */
-    window.addEventListener('scroll', () => {
+    document.querySelectorAll('nav a').forEach(a=> a.addEventListener('click', ()=> setTimeout(()=>AOS.refresh(),500)));
+    window.addEventListener('scroll', ()=>{
       const h = document.documentElement,
-            pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+            pct = (h.scrollTop/(h.scrollHeight - h.clientHeight))*100;
       document.getElementById('progress').style.width = pct + '%';
       document.querySelector('header').classList.toggle('scrolled', window.scrollY > 50);
-      document.querySelectorAll('nav a').forEach(a => {
+      document.querySelectorAll('nav a').forEach(a=>{
         const sec = document.querySelector(a.getAttribute('href'));
         a.classList.toggle('active',
           sec &&
-          sec.offsetTop <= window.scrollY + 200 &&
-          sec.offsetTop + sec.offsetHeight > window.scrollY + 200
+          sec.offsetTop <= window.scrollY+200 &&
+          sec.offsetTop+sec.offsetHeight > window.scrollY+200
         );
       });
     });
-
-    /* Mobile nav toggle */
     function toggleNav(){
-      const nav = document.getElementById('mainNav');
-      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+      document.getElementById('mainNav').classList.toggle('mobile-open');
     }
   </script>
 </body>
