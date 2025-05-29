@@ -58,9 +58,8 @@
     #home { background:url('assets/sky.jpg') center/cover no-repeat fixed; height:100vh; display:flex; align-items:center; justify-content:center; position:relative; }
     #home::after { content:''; position:absolute; inset:0; background:rgba(0,0,0,0.6); }
     .hero-content { position:relative; z-index:1; text-align:center; max-width:700px; }
-    .typewriter { overflow:hidden; white-space:nowrap; border-right:.15em solid #BDFF20; animation:type 3s steps(40,end), blink .75s step-end infinite; }
-    @keyframes type { from{ width:0;} to{ width:100%; } }
-    @keyframes blink{ 50%{ border-color:transparent;} }
+    /* NEW: Highlight GameVault text */
+    .hero-content h1 .highlight { color:#BDFF20; }
     .hero-content h1 { font-size:4rem; margin-bottom:20px; color:#fff; }
     .hero-content p { font-size:1.25rem; color:#ccc; margin-bottom:30px; }
     .btn { padding:16px 48px; background:#BDFF20; color:#000; font-weight:600; border-radius:30px; transition:transform .3s; }
@@ -112,22 +111,29 @@
     /* ===== Section-Nav Arrows ===== */
     .section-nav { text-align:center; margin:2rem auto; color:#BDFF20; font-size:1.25rem; font-weight:500; }
 
-    /* ===== Responsive ===== */
+    /* ===== Mobile Overrides ===== */
     @media(max-width:768px){
       nav { display:none; }
       .hamburger { display:flex; }
       .top-cards { flex-direction:column; }
-      /* align GV Goals to the right in mobile */
+
+      /* Align GV Goals and its content to the right on mobile */
       .goals-card {
         grid-template-columns:1fr;
         grid-template-rows:auto auto auto auto;
         gap:20px;
-        text-align:right;      /* right-align all text */
-        justify-items:end;     /* push each grid item to the right */
+        text-align:right;
+        justify-items:end;
       }
+
       .event-card { flex-direction:column; }
       .event-card .event-poster { flex:0 0 auto; width:100%; }
       #team .team-card, #contact .contact-info { max-width:100%; }
+
+      /* make each section full-width on mobile */
+      .section { max-width:none; padding:0 1rem; margin:1.5rem auto; }
+      /* allow hero bg to scroll on mobile */
+      #home { background-attachment: scroll; }
     }
   </style>
 </head>
@@ -149,7 +155,7 @@
     <!-- HERO -->
     <section id="home" class="section" data-aos="fade-up">
       <div class="hero-content">
-        <h1><span class="typewriter">Want to know? GAMEVAULT</span></h1>
+        <h1>Want to <span class="highlight">Know GameVault?</span></h1>
         <p>Transforming esports into a healthier, more inclusive, and truly engaging experience.</p>
         <a href="#about" class="btn">Dive in!</a>
       </div>
@@ -169,15 +175,15 @@
       </div>
       <div class="goals-card" data-aos="zoom-in">
         <div class="title-area"><h2>GV<br>Goals</h2></div>
-        <div class="provide" data-aos="fade-up" data-aos-delay="100">
+        <div class="goal provide" data-aos="fade-up" data-aos-delay="100">
           <h3>Provide Open Information</h3>
           <p>Deliver transparent resources that empower players to make informed gaming decisions.</p>
         </div>
-        <div class="promote" data-aos="fade-up" data-aos-delay="200">
+        <div class="goal promote" data-aos="fade-up" data-aos-delay="200">
           <h3>Promote Healthy Gameplay</h3>
           <p>Encourage regular breaks, mental health awareness, and a culture of respect and inclusivity.</p>
         </div>
-        <div class="fun" data-aos="fade-up" data-aos-delay="300">
+        <div class="goal fun" data-aos="fade-up" data-aos-delay="300">
           <h3>Addiction-Free Fun</h3>
           <p>Thoughtful scheduling, reasonable match lengths, and wellness tips ensure gaming stays a passion, not a pitfall.</p>
         </div>
@@ -264,11 +270,12 @@
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
     AOS.init({ duration:800, offset:100, once:false, mirror:true });
+    document.querySelectorAll('nav a').forEach(a=> a.addEventListener('click', ()=> setTimeout(()=>AOS.refresh(),500)));
     window.addEventListener('scroll', ()=>{
       const h = document.documentElement,
             pct = (h.scrollTop/(h.scrollHeight - h.clientHeight))*100;
       document.getElementById('progress').style.width = pct + '%';
-      document.querySelector('header').classList.toggle('scrolled',window.scrollY>50);
+      document.querySelector('header').classList.toggle('scrolled', window.scrollY > 50);
       document.querySelectorAll('nav a').forEach(a=>{
         const sec = document.querySelector(a.getAttribute('href'));
         a.classList.toggle('active',
