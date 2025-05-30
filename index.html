@@ -15,6 +15,7 @@
     html {
       scroll-behavior: smooth;
       scroll-padding-top: 120px; /* ADDED: ensure sections clear fixed header when linking */
+      overflow-x: hidden;        /* ADDED: remove horizontal scroll */
     }
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     body {
@@ -67,6 +68,7 @@
     }
     .hamburger span {
       display:block; width:25px; height:3px; background:#fff; border-radius:2px;
+      transition:transform .3s, opacity .3s; /* ADDED: for X animation */
     }
 
     /* ===== Section Base ===== */
@@ -185,27 +187,38 @@
         padding:20px 1rem; /* MODIFIED: reduce side padding on mobile */
       }
       nav {
-        display:none; /* hide desktop nav */
+        display:none; /* hide desktop nav on mobile */
       }
       .hamburger {
-        display:flex; /* show hamburger */
+        display:flex; /* show hamburger on mobile */
       }
-      /* ADDED: slide-down mobile nav when open */
+
+      /* ===== mobile menu slide-in from right ===== */
       nav.mobile-open {
-        display:flex;
+        display:flex;               /* show nav when toggled */
         flex-direction:column;
-        position:absolute;
-        top:100%;
-        left:0;
-        width:100%;
+        position:fixed;             /* overlay entire viewport */
+        top:0; right:0;
+        width:80%; height:100vh;
         background:rgba(0,0,0,0.95);
-        padding:1rem;
-        gap:1rem;
+        padding:4rem 1.5rem;        /* space for close icon */
+        box-shadow:-4px 0 8px rgba(0,0,0,0.5);
         z-index:1000;
       }
       nav.mobile-open a {
-        padding:0.5rem 0;
+        padding:1rem 0;             /* larger touch area */
         border-bottom:1px solid #333;
+      }
+
+      /* hamburger → X animation */
+      .hamburger.open span:nth-child(1) {
+        transform:rotate(45deg) translate(5px,5px);
+      }
+      .hamburger.open span:nth-child(2) {
+        opacity:0;
+      }
+      .hamburger.open span:nth-child(3) {
+        transform:rotate(-45deg) translate(5px,-5px);
       }
 
       .section {
@@ -403,9 +416,24 @@
         );
       });
     });
+
     function toggleNav(){
-      document.getElementById('mainNav').classList.toggle('mobile-open');
+      const nav = document.getElementById('mainNav');
+      const burger = document.querySelector('.hamburger');
+      nav.classList.toggle('mobile-open'); /* toggle menu */
+      burger.classList.toggle('open');      /* animate icon */
     }
+    /* CLOSE menu on nav link click */
+    document.querySelectorAll('#mainNav a').forEach(link=>{
+      link.addEventListener('click', ()=>{
+        const nav = document.getElementById('mainNav');
+        const burger = document.querySelector('.hamburger');
+        if(nav.classList.contains('mobile-open')){
+          nav.classList.remove('mobile-open');
+          burger.classList.remove('open');
+        }
+      });
+    });
   </script>
 </body>
 </html>
