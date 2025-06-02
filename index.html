@@ -91,10 +91,15 @@
 
     /* ===== Hero ===== */
     #home {
-      background:url('assets/sky.jpg') center/cover no-repeat fixed;
-      height:100vh; display:flex; align-items:center; justify-content:center;
-      padding-top:120px;          /* ADDED: push hero content below header */ 
+      background:url('assets/sky.jpg') center/cover no-repeat scroll; 
+      height:100vh;
+
+      display:flex; 
+      align-items:flex-start;    /* CHANGED: originally was center; now flex-start to move content down */
+      justify-content:center;     
+      padding-top:120px;          /* ADDED: push hero content below header */
       position:relative;
+      overflow:hidden;            /* ORIGINAL: ensures no scroll inside #home */
     }
     #home::after {
       content:''; position:absolute; inset:0; background:rgba(0,0,0,0.6);
@@ -292,10 +297,9 @@
       </div>
     </section>
 
-    <div class="section-nav"><b>‹ Know GameVault ›</b></div>
-
     <!-- ABOUT & GOALS -->
-    <section id="about" class="section" data-aos="fade-up"> 
+    <div class="section-nav"><b>‹ Know GameVault ›</b></div>
+    <section id="about" class="section" data-aos="fade-up">
       <div class="top-cards">
         <div class="card" data-aos="fade-right">
           <h2>ABOUT US</h2>
