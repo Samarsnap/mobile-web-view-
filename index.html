@@ -372,14 +372,15 @@
       /* Force html/body to hide horizontal scroll on mobile */
       html, body {
         overflow-x: hidden;
+        height: 100%;          /* make sure both fill the viewport */
       }
 
-      /* ► New for mobile: move vertical scrolling from html → body */
+      /* ► Revised: keep html from scrolling, but let body scroll fully */
       html {
-        overflow-y: hidden;  /* stop html from scrolling */
+        overflow-y: hidden;    /* disable html scrolling */
       }
       body {
-        overflow-y: auto;    /* let only body scroll vertically */
+        overflow-y: auto;      /* let body handle vertical scroll */
       }
 
       header {
@@ -404,7 +405,7 @@
         cursor: pointer;
       }
 
-      /* ===== Mobile Nav (slide‐in) ===== */
+      /* ===== Mobile Nav (slide-in) ===== */
       nav.mobile-open {
         display: flex;               /* show nav when toggled */
         flex-direction: column;
