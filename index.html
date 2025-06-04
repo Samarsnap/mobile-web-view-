@@ -17,8 +17,8 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      overflow-x: hidden;    /* no horizontal scrollbar */
-      overflow-y: auto;      /* vertical scroll on html */
+      overflow-x: hidden;    /* never show horizontal scrollbar */
+      overflow-y: auto;      /* exactly one vertical scrollbar on <html> */
       scroll-behavior: smooth;
       scroll-padding-top: 120px; /* fixed header offset */
       font-family: 'Poppins', sans-serif;
@@ -30,7 +30,8 @@
       margin: 0;
       padding: 0;
       box-sizing: inherit;
-      /* no overflow rules here—scroll is on html */
+      /* Ensure body does not add its own scrollbar */
+      overflow-y: visible;
     }
     *, *::before, *::after {
       margin: 0;
@@ -361,7 +362,7 @@
 
     /* ===== Mobile Overrides ===== */
     @media (max-width: 768px) {
-      /* Force html/body to hide horizontal scroll on mobile */
+      /* Ensure html/body hide horizontal scroll on mobile */
       html, body {
         overflow-x: hidden;
       }
