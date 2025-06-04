@@ -106,11 +106,13 @@
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
+      /* We'll shrink it further on mobile */
+      transition: transform .2s;
     }
     .hamburger span {
       display: block;
-      width: 25px;
-      height: 3px;
+      width: 20px;   /* smaller width */
+      height: 2px;   /* thinner lines */
       background: #fff;
       border-radius: 2px;
       transition: transform .3s, opacity .3s;
@@ -360,6 +362,11 @@
       margin-bottom: 12px;
     }
 
+    /* ===== Hide close‐button by default ===== */
+    .close-btn {
+      display: none;
+    }
+
     /* ===== Mobile Overrides ===== */
     @media (max-width: 768px) {
       /* Force html/body to hide horizontal scroll on mobile */
@@ -374,27 +381,41 @@
         display: none; /* hide desktop nav on mobile */
       }
       .hamburger {
-        display: flex; /* show hamburger on mobile */
+        display: flex;      /* show hamburger on mobile */
+        transform: scale(0.9); /* slightly shrink hamburger */
       }
 
+      /* ===== Only show the “×” when nav.mobile-open is active ===== */
+      nav.mobile-open .close-btn {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 2rem;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      /* ===== Mobile Nav (slide‐in) ===== */
       nav.mobile-open {
-        display: flex;            /* show nav when toggled */
+        display: flex;               /* show nav when toggled */
         flex-direction: column;
-        position: fixed;          /* overlay full viewport */
+        position: fixed;             /* overlay full viewport */
         top: 0;
         right: 0;
         width: 80%;
         height: 100vh;
         background: rgba(0, 0, 0, 0.95);
-        padding: 4rem 1.5rem;     /* space for close icon */
+        padding: 4rem 1.5rem;        /* space for close icon + links */
         box-shadow: -4px 0 8px rgba(0, 0, 0, 0.5);
         z-index: 1000;
       }
       nav.mobile-open a {
-        padding: 1rem 0;          /* larger touch area */
+        padding: 1rem 0;             /* larger touch area */
         border-bottom: 1px solid #333;
       }
 
+      /* ===== Content Sections on Mobile ===== */
       .section {
         max-width: none;
         padding: 0 1rem; /* full-width minus small 1rem side padding */
@@ -464,6 +485,9 @@
       <span></span><span></span><span></span>
     </div>
     <nav id="mainNav">
+      <!-- Close button (×) for mobile nav -->
+      <span class="close-btn" onclick="closeNav()">×</span>
+      <!-- Navigation links -->
       <a href="#home" class="active">Home</a>
       <a href="#about">About GV</a>
       <a href="#events">Our Events</a>
@@ -618,18 +642,21 @@
       const nav = document.getElementById('mainNav');
       const burger = document.querySelector('.hamburger');
       nav.classList.toggle('mobile-open'); /* toggle menu */
-      burger.classList.toggle('open');      /* animate icon */
+      burger.classList.toggle('open');      /* animate icon if you want */
+    }
+    function closeNav() {
+      const nav = document.getElementById('mainNav');
+      const burger = document.querySelector('.hamburger');
+      if (nav.classList.contains('mobile-open')) {
+        nav.classList.remove('mobile-open');
+        burger.classList.remove('open');
+      }
     }
 
-    /* CLOSE mobile menu on nav link click */
+    /* CLOSE mobile menu on link click as well */
     document.querySelectorAll('#mainNav a').forEach(link => {
       link.addEventListener('click', () => {
-        const nav = document.getElementById('mainNav');
-        const burger = document.querySelector('.hamburger');
-        if (nav.classList.contains('mobile-open')) {
-          nav.classList.remove('mobile-open');
-          burger.classList.remove('open');
-        }
+        closeNav();
       });
     });
   </script>
