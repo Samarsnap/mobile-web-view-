@@ -362,7 +362,7 @@
 
     /* ===== Mobile Overrides ===== */
     @media (max-width: 768px) {
-      /* Ensure html/body hide horizontal scroll on mobile */
+      /* Force html/body to hide horizontal scroll on mobile */
       html, body {
         overflow-x: hidden;
       }
@@ -404,25 +404,38 @@
         flex-direction: column; /* stack about cards */
       }
 
-      /* Left-align GV Goals on mobile, remove horizontal grid layout */
+      /* ===== GV Goals on Mobile ===== */
       .goals-card {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto auto;
-        gap: 24px;
-        text-align: left;      /* left-align text */
-        padding-left: 1rem;    /* small left padding if desired */
+        /* Turn the grid into a single, stacked, rounded card */
+        display: block;
+        background: #222;
+        border-radius: 12px;
+        padding: 1rem;       /* smaller padding on mobile */
+        margin-bottom: 2rem; /* spacing below the card */
       }
       .goals-card .title-area {
-        grid-row: 1;
+        /* The green “GV Goals” heading */
+        margin-bottom: 1rem;
       }
-      .goals-card .provide {
-        grid-row: 2;
+      .goals-card .title-area h2 {
+        font-size: 1.75rem;
+        color: #BDFF20;
+        margin: 0;
       }
-      .goals-card .promote {
-        grid-row: 3;
+      .goals-card .goal {
+        margin-bottom: 1.5rem; /* space between each goal */
       }
-      .goals-card .fun {
-        grid-row: 4;
+      .goals-card .goal h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 0.25rem;
+      }
+      .goals-card .goal p {
+        font-size: 1rem;
+        color: #eee;
+        margin: 0;
+        line-height: 1.4;
       }
 
       .event-card {
@@ -482,17 +495,19 @@
           <p>To create a safe, inclusive, and supportive space where gamers can compete, learn, and grow without the stress and pressure of traditional gaming environments. We strive to build a community that values respect, balance, and healthy gaming habits.</p>
         </div>
       </div>
+
+      <!-- GV Goals -->
       <div class="goals-card" data-aos="zoom-in">
         <div class="title-area">
           <h2>GV<br>Goals</h2>
         </div>
-        <div class="goal provide">
-          <h3>Provide Open Information</h3>
-          <p>Deliver transparent resources that empower players to make informed gaming decisions.</p>
-        </div>
         <div class="goal promote">
           <h3>Promote Healthy Gameplay</h3>
           <p>Encourage regular breaks, mental health awareness, and a culture of respect and inclusivity.</p>
+        </div>
+        <div class="goal provide">
+          <h3>Provide Open Information</h3>
+          <p>Deliver transparent resources that empower players to make informed gaming decisions.</p>
         </div>
         <div class="goal fun">
           <h3>Addiction-Free Fun</h3>
