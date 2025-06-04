@@ -372,16 +372,11 @@
       /* Force html/body to hide horizontal scroll on mobile */
       html, body {
         overflow-x: hidden;
-        height: 100%;          /* make sure both fill the viewport */
       }
 
-      /* ► Revised: keep html from scrolling, but let body scroll fully */
-      html {
-        overflow-y: hidden;    /* disable html scrolling */
-      }
-      body {
-        overflow-y: auto;      /* let body handle vertical scroll */
-      }
+      /* ── Remove “html overflow-y: hidden / body overflow-y: auto” hack ──
+         so that the browser’s normal <html> scroll resumes. */
+      /* (We simply let <html> scroll, which guarantees all sections remain visible.) */
 
       header {
         padding: 20px 1rem; /* reduce side padding */
