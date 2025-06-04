@@ -17,10 +17,10 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      overflow-x: hidden;    /* never show horizontal scroll */
-      overflow-y: auto;      /* only one vertical scrollbar on <html> */
+      overflow-x: hidden;    /* no horizontal scrollbar */
+      overflow-y: auto;      /* vertical scroll on html */
       scroll-behavior: smooth;
-      scroll-padding-top: 120px; /* ensure sections clear fixed header */
+      scroll-padding-top: 120px; /* fixed header offset */
       font-family: 'Poppins', sans-serif;
       background: #000;
       color: #fff;
@@ -30,7 +30,7 @@
       margin: 0;
       padding: 0;
       box-sizing: inherit;
-      /* No overflow rules here—scroll is on html */
+      /* no overflow rules here—scroll is on html */
     }
     *, *::before, *::after {
       margin: 0;
@@ -101,7 +101,7 @@
       transform-origin: left;
     }
     .hamburger {
-      display: none; /* show on mobile */
+      display: none; /* show on mobile only */
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
@@ -124,9 +124,9 @@
       margin: 40px auto;
       padding: 0 60px;
       scroll-margin-top: 135px;
-      opacity: 1;                   /* visible immediately */
-      transform: translateY(0);     /* no initial translate */
-      transition: none;             /* no initial hiding animation */
+      opacity: 1;               /* immediate visibility */
+      transform: translateY(0); /* no initial translate */
+      transition: none;         /* no “hide then animate” */
     }
     .section-title {
       text-align: center;
@@ -150,11 +150,11 @@
       background: url('assets/sky.jpg') center/cover no-repeat scroll;
       min-height: 100vh;       /* full viewport height */
       display: flex;
-      align-items: flex-start; /* keep content below header */
+      align-items: flex-start; /* push content below header */
       justify-content: center;
-      padding-top: 120px;      /* space for header */
+      padding-top: 120px;      /* header offset */
       position: relative;
-      /* no overflow: hidden */
+      /* no overflow: hidden here */
     }
     #home::after {
       content: '';
@@ -361,8 +361,13 @@
 
     /* ===== Mobile Overrides ===== */
     @media (max-width: 768px) {
+      /* Force html/body to hide horizontal scroll on mobile */
+      html, body {
+        overflow-x: hidden;
+      }
+
       header {
-        padding: 20px 1rem; /* reduce side padding on mobile */
+        padding: 20px 1rem; /* reduce side padding */
       }
       nav {
         display: none; /* hide desktop nav on mobile */
@@ -374,7 +379,7 @@
       nav.mobile-open {
         display: flex;            /* show nav when toggled */
         flex-direction: column;
-        position: fixed;          /* overlay entire viewport */
+        position: fixed;          /* overlay full viewport */
         top: 0;
         right: 0;
         width: 80%;
@@ -391,34 +396,45 @@
 
       .section {
         max-width: none;
-        padding: 0 1rem; /* full-width on mobile */
+        padding: 0 1rem; /* full-width minus small 1rem side padding */
         margin: 1.5rem auto;
       }
       .top-cards {
         flex-direction: column; /* stack about cards */
       }
 
+      /* Left-align GV Goals on mobile, remove horizontal grid layout */
       .goals-card {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto auto;
         gap: 24px;
-        text-align: center;
+        text-align: left;      /* left-align text */
+        padding-left: 1rem;    /* small left padding if desired */
       }
-      .goals-card .title-area { grid-row: 1; }
-      .goals-card .provide   { grid-row: 2; }
-      .goals-card .promote   { grid-row: 3; }
-      .goals-card .fun       { grid-row: 4; }
+      .goals-card .title-area {
+        grid-row: 1;
+      }
+      .goals-card .provide {
+        grid-row: 2;
+      }
+      .goals-card .promote {
+        grid-row: 3;
+      }
+      .goals-card .fun {
+        grid-row: 4;
+      }
 
       .event-card {
-        flex-direction: column; /* single column events */
+        flex-direction: column; /* stack event poster and text */
       }
       .event-card .event-poster {
         flex: 0 0 auto;
         width: 100%;
       }
+
       #team .team-card,
       #contact .contact-info {
-        max-width: 100%; /* full-width team & contact */
+        max-width: 100%; /* full-width team & contact on mobile */
       }
       #home {
         background-attachment: scroll; /* allow hero bg to scroll */
