@@ -291,8 +291,8 @@
       gap: 30px;
       background: #222;
       border-radius: 8px;
-      width: 80%;
-      max-width: 800px;
+      width: 80%;        /* desktop default */
+      max-width: 800px;   /* desktop default */
       overflow: hidden;
       padding: 30px;
       transition: transform .3s, box-shadow .3s;
@@ -374,9 +374,8 @@
         overflow-x: hidden;
       }
 
-      /* ── Remove “html overflow-y: hidden / body overflow-y: auto” hack ──
-         so that the browser’s normal <html> scroll resumes. */
-      /* (We simply let <html> scroll, which guarantees all sections remain visible.) */
+      /*── We no longer force html to hide its vertical scrollbar.
+           Instead, let <html> scroll normally so that all sections remain reachable. */
 
       header {
         padding: 20px 1rem; /* reduce side padding */
@@ -463,8 +462,12 @@
         line-height: 1.4;
       }
 
+      /* ===== Make “Our Events” card wider on mobile ===== */
       .event-card {
-        flex-direction: column; /* stack event poster and text */
+        flex-direction: column;  /* stack event poster + text */
+        width: 100%;             /* span full available width */
+        max-width: none;         /* remove desktop max-width */
+        margin: 0 auto;          /* center within parent padding */
       }
       .event-card .event-poster {
         flex: 0 0 auto;
