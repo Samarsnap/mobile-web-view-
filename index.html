@@ -18,7 +18,7 @@
       padding: 0;
       box-sizing: border-box;
       overflow-x: hidden;    /* never show horizontal scrollbar */
-      overflow-y: auto;      /* exactly one vertical scrollbar on <html> */
+      overflow-y: auto;      /* exactly one vertical scrollbar on <html> by default */
       scroll-behavior: smooth;
       scroll-padding-top: 120px; /* fixed header offset */
       font-family: 'Poppins', sans-serif;
@@ -372,6 +372,14 @@
       /* Force html/body to hide horizontal scroll on mobile */
       html, body {
         overflow-x: hidden;
+      }
+
+      /* ► New for mobile: move vertical scrolling from html → body */
+      html {
+        overflow-y: hidden;  /* stop html from scrolling */
+      }
+      body {
+        overflow-y: auto;    /* let only body scroll vertically */
       }
 
       header {
