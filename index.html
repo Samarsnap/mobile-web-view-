@@ -124,7 +124,7 @@
     }
     .section {
       max-width: 1200px;
-      margin: 40px auto;
+      margin: 40px auto;       /* default margin around sections */
       padding: 0 60px;
       scroll-margin-top: 135px;
       opacity: 1;               /* immediate visibility */
@@ -196,6 +196,14 @@
       transform: scale(1.1) rotate(-1deg);
     }
 
+  /* ===== Globally reduce gap between .section-nav and its next .section ===== */
+    /* added: override the default 40px top-margin on any section that immediately follows .section-nav */
+    .section-nav + .section {
+      margin-top: 10px;   /* instead of the default 40px */
+    }
+
+
+
     /* ===== About & Mission ===== */
     .top-cards {
       display: flex;
@@ -224,8 +232,11 @@
       font-size: 2rem;
       font-weight: 600;
       color: #BDFF20;
-      margin: 20px 0;
-      padding: 5px 0;
+
+      /* modified: tightened top and bottom margins */
+      margin: 1px 0 1px;    /* top:25px, left/right:0, bottom:1px */
+      padding: 2px 0;       /* modified: reduced padding */
+
       letter-spacing: 0.5px;
       text-transform: uppercase;
       text-align: center;
@@ -481,6 +492,14 @@
       #home {
         background-attachment: scroll; /* allow hero bg to scroll */
       }
+
+      /* ===== Reduce gap between “‹ Know GameVault ›” and the cards on mobile ===== */
+      /* We already added a global “.section-nav + .section { margin-top:10px; }” above,
+         so this is not strictly necessary, but if you want even tighter control on mobile,
+         you can override again here. */
+      .section-nav + .section {
+        margin-top: 10px;  /* Mobile-specific: ensure 10px top-gap under heading */
+      }
     }
   </style>
 </head>
@@ -625,6 +644,7 @@
   <script>
     AOS.init({ duration:800, offset:100, once:false, mirror:true });
 
+    // Add smooth AOS refresh on nav link click
     document.querySelectorAll('nav a').forEach(a =>
       a.addEventListener('click', () => setTimeout(() => AOS.refresh(), 500))
     );
@@ -660,10 +680,16 @@
       }
     }
 
-    /* CLOSE mobile menu on link click as well */
+    /* CLOSE mobile menu on link click as well, 
+       but prevent scrolling if already at that section */
     document.querySelectorAll('#mainNav a').forEach(link => {
-      link.addEventListener('click', () => {
-        closeNav();
+      link.addEventListener('click', (e) => {
+        const targetHash = link.getAttribute('href');
+        // If we're already at that section, prevent default scroll
+        if (window.location.hash === targetHash) {
+          e.preventDefault();  // modified: stop repeated scroll
+        }
+        closeNav();  // always close the mobile menu
       });
     });
   </script>
