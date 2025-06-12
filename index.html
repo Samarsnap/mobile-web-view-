@@ -388,8 +388,8 @@
       gap: 30px;
       background: #222;
       border-radius: 8px;
-      width: 80%;
-      max-width: 800px;
+      width: 100%;
+      max-width: 1000px;
       overflow: hidden;
       padding: 30px;
       transition: transform .3s, box-shadow .3s;
@@ -418,6 +418,20 @@
       transform: scale(1.02);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     }
+
+
+
+  .event-subtitle {
+    font-size: 1.2rem;         /* size of the new sub-heading */
+    color: #BDFF20;            /* neon green */
+    margin-bottom: 16px;       /* space below it */
+    text-transform: uppercase; /* optional styling */
+  }
+
+  /* 2) Utility classes for text alignment */
+  .event-text.align-left   { text-align: left; }
+
+ 
 
     /* ===== Team ===== */
     #team .team-members {
@@ -729,27 +743,35 @@
     </section>
 
     <div class="section-nav"><b>‹ Our Events ›</b></div>
-    <section id="events" class="section" data-aos="fade-up">
-      <div class="event-list">
-        <div class="event-card" data-aos="fade-right">
-          <div class="event-text">
-            <h4>Barh Summer Royale BGMI Tournament</h4>
-            <p>Duration: 1 Day</p>
-            <p>Date: to be decided</p>
-            <p>Prize: 4000 Day</p>
-            <p>Location: Barh, Bihar</p>
-            <p>Venue: To be decided</p>
-            <p>Click for registration</p>
-            <p>Rules:</p>
-            <p>1. Only Squad entry</p>
-            <p>2. Barh Subdivision Gamers</p>
-          </div>
-          <div class="event-poster">
-            <img src="assets/p.png" alt="Event Poster"/>
-          </div>
-        </div>
+<!-- ── OUR EVENTS SECTION (replace your current one) ── -->
+<section id="events" class="section" data-aos="fade-up">
+  <div class="event-list">
+    <div class="event-card" data-aos="fade-right">
+      
+      <!-- TEXT PANEL: add a subheading and alignment class -->
+      <div class="event-text align-center">
+        <h5 class="event-subtitle">Upcoming Tournament</h5>
+        <h4>Barh Summer Royale BGMI Tournament</h4>
+        <p>Duration: 1 Day</p>
+        <p>Date: to be decided</p>
+        <p>Prize: 4000 Day</p>
+        <p>Location: Barh, Bihar</p>
+        <p>Venue: To be decided</p>
+        <p>Click for registration</p>
+        <p>Rules:</p>
+        <p>1. Only Squad entry</p>
+        <p>2. Barh Subdivision Gamers</p>
       </div>
-    </section>
+
+      <!-- IMAGE PANEL (unchanged HTML) -->
+      <div class="event-poster">
+        <img src="assets/p.png" alt="Event Poster"/>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 
     <div class="section-nav"><b>‹ GV Team ›</b></div>
     <section id="team" class="section" data-aos="fade-up">
