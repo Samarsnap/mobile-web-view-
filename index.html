@@ -145,16 +145,37 @@
       bottom: -10px;
     }
 
+
+  #home.section {
+    max-width: none;      /* allow it to grow to the viewport */
+    width: 100vw;         /* force full viewport width */
+    margin: 0;            /* cancel the auto-center */
+    padding: 0;           /* remove the side padding */
+  }
+
+  /* 2) Cancel the global push-down so hero can slide up under the nav */
+  main {
+    padding-top: 0;   /* remove the 100px gap */
+  }
+
     /* ===== Hero ===== */
+    /* Desktop-only: ensure BG covers full viewport */
     #home {
-      background: url('assets/logo.jpg') center/cover no-repeat scroll;
-      min-height: 100vh;
+      /* Use explicit background properties instead of shorthand */
+      background-image: url('assets/logo.jpg');   /* hero BG image */
+      background-repeat: no-repeat;                /* no tiling */
+      background-position: center;          /* center image */
+      background-size: cover;                      /* cover entire area */
+      background-attachment: fixed;               /* normal scroll behavior */
+
+      min-height: 100vh;                           /* full viewport height */
       display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding-top: 120px;
-      position: relative;
+      align-items: center;                        /* vertically center content */
+      justify-content: center;                    /* horizontally center content */
+      padding: 0;                                 /* remove extra padding */      position: relative;
     }
+
+
     #home::after {
       content: '';
       position: absolute;
@@ -192,6 +213,7 @@
       transform: scale(1.1) rotate(-1deg);
     }
 
+  
     /* ===== Reduce gap under section-nav ===== */
     .section-nav + .section {
       margin-top: 10px; /* reduced from 40px */
